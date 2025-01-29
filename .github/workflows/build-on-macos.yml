@@ -39,6 +39,14 @@ jobs:
         working-directory: ./mozilla-unified
         run: echo "ac_add_options --with-branding=browser/branding/unofficial" > mozconfig
 
+      - name: Get foxified profile
+        working-directory: ./
+        run: git clone "https://github.com/Sneed-Group/sneedium2-foxified-profile"
+
+      - name: Initialize `foxified profile`
+        working-directory: ./mozilla-unified
+        run: cp -r ../sneedium2-foxified-profile/ .
+
       - name: Set Release Tag Output
         id: release-tag
         run: echo "NOW=$(date +'%Y%m%d%H%M%S')" >> "$GITHUB_OUTPUT"
