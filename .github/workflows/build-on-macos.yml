@@ -24,7 +24,7 @@ jobs:
       contents: write
     steps:
       - name: Install Mercurial
-        run: python3 -m pip install -U mercurial
+        run: python3 -m pip install --break-system-packages -U mercurial
 
       - name: Bootstrap Mozilla Source
         run: |
