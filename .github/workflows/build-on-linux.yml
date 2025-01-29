@@ -42,7 +42,7 @@ jobs:
 
       - name: Initialize `mozconfig`
         working-directory: ./mozilla-unified
-        run: echo "ac_add_options --with-branding=browser/branding/official" > mozconfig
+        run: echo "ac_add_options --with-branding=browser/branding/unofficial" > mozconfig
 
       - name: Set Release Tag Output
         id: release-tag
