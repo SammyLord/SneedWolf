@@ -45,6 +45,14 @@ jobs:
         shell: C:\mozilla-build\start-shell.bat -here -e {0}
         run: echo "ac_add_options --with-branding=browser/branding/unofficial" > mozconfig
 
+      - name: Get foxified profile
+        working-directory: ./
+        run: git clone "https://github.com/Sneed-Group/sneedium2-foxified-profile"
+
+      - name: Initialize `foxified profile`
+        working-directory: ./mozilla-unified
+        run: xcopy ..\sneedium2-foxified-profile\* .\ /s /e /h
+
       - name: Set Release Tag Output
         id: release-tag
         shell: C:\mozilla-build\start-shell.bat -e {0}
