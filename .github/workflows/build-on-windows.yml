@@ -1,4 +1,4 @@
-name: Build Firefox on Windows
+name: Build Sneedium on Windows (BROKEN?)
 
 on:
   workflow_dispatch:
