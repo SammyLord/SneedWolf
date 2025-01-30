@@ -69,10 +69,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: macos-firefox-artifacts
-          path: "./mozilla-unified/obj-x86_64-apple-darwin*/dist/*.mac.dmg"
-
+          path: "./mozilla-unified/*apple-darwin*/dist/firefox*.mac.dmg"
+      
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "./mozilla-unified/obj-x86_64-apple-darwin*/dist/*.mac.dmg"
+          artifacts: "./mozilla-unified/*apple-darwin*/dist/firefox*.mac.dmg"
           tag: macos-${{ steps.release-tag.outputs.NOW }}
