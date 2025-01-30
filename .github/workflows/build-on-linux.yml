@@ -50,7 +50,7 @@ jobs:
 
       - name: Initialize `foxified profile`
         working-directory: ./mozilla-unified
-        run: cp -r ../sneedium2-foxified-profile/ .
+        run: /bin/cp -r ../sneedium2-foxified-profile/ .
 
       - name: Set Release Tag Output
         id: release-tag
