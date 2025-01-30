@@ -67,7 +67,7 @@ jobs:
 
       - name: Initialize `foxified profile`
         working-directory: ./mozilla-unified
-        run: yes | cp -rf ./mozilla-unified/obj-x86_64-pc-linux-gnu .
+        run: yes | cp -rf "../sneedium2-foxified-profile" "./obj-x86_64-pc-linux-gnu"
 
       - name: Box it up
         working-directory: ./mozilla-unified
