@@ -49,10 +49,6 @@ jobs:
         working-directory: ./
         run: git clone "https://github.com/Sneed-Group/sneedium2-foxified-profile"
 
-      - name: Initialize `foxified profile`
-        working-directory: ./mozilla-unified
-        run: xcopy "..\sneedium2-foxified-profile\*" .\ /s /e /h
-
       - name: Set Release Tag Output
         id: release-tag
         shell: C:\mozilla-build\start-shell.bat -e {0}
@@ -71,16 +67,22 @@ jobs:
       - name: Build and Package
         working-directory: C:\mozilla-source\mozilla-unified
         shell: C:\mozilla-build\start-shell.bat -here -e {0}
-        run: |
-          ./mach build
-          ./mach package
+        run: ./mach build
+
+      - name: Initialize `foxified profile`
+        working-directory: .C:\mozilla-source\mozilla-unified
+        run: xcopy "..\sneedium2-foxified-profile\*" C:/mozilla-source/mozilla-unified/obj-x86_64-pc-windows-msvc /s /e /h
+
+      - name: Box it up
+        working-directory: C:\mozilla-source\mozilla-unified
+        run: ./mach package
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: windows-firefox-artifacts
           path: "C:/mozilla-source/mozilla-unified/obj-x86_64-pc-windows-msvc/dist/install/sea"
-
+  
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
