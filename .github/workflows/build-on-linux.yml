@@ -1,4 +1,4 @@
-name: Build Firefox on Linux
+name: Build Sneedium on Linux
 
 on:
   workflow_dispatch:
@@ -48,10 +48,6 @@ jobs:
         working-directory: ./
         run: git clone "https://github.com/Sneed-Group/sneedium2-foxified-profile"
 
-      - name: Initialize `foxified profile`
-        working-directory: ./mozilla-unified
-        run: yes | cp -rf ../sneedium2-foxified-profile/ .
-
       - name: Set Release Tag Output
         id: release-tag
         run: echo "NOW=$(date +'%Y%m%d%H%M%S')" >> "$GITHUB_OUTPUT"
@@ -64,11 +60,18 @@ jobs:
         working-directory: ./mozilla-unified
         run: sed -i 's/MACRO(debugger/MACRO(${{ steps.debugger-keyword.outputs.DEBUGGER_KEYWORD }}/' ./js/src/frontend/ReservedWords.h
 
-      - name: Build and Package
+      - name: Build
         working-directory: ./mozilla-unified
         run: |
           ./mach build 
-          ./mach package
+
+      - name: Initialize `foxified profile`
+        working-directory: ./mozilla-unified
+        run: yes | cp -rf ./mozilla-unified/obj-x86_64-pc-linux-gnu .
+
+      - name: Box it up
+        working-directory: ./mozilla-unified
+        run: ./mach package
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
