@@ -1,4 +1,4 @@
-name: Build Sneedium on Linux
+name: Build SneedWolf on Linux
 
 on:
   workflow_dispatch:
