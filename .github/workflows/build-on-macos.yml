@@ -1,4 +1,4 @@
-name: Build Sneedium on macOS
+name: Build SneedWolf on macOS
 
 on:
   workflow_dispatch:
