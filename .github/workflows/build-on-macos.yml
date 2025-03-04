@@ -62,7 +62,7 @@ jobs:
 
       - name: Initialize `foxified profile`
         working-directory: ./mozilla-unified
-        run:  cp -rf "../sneedium2-foxified-profile/" "./*apple-darwin*/"
+        run:  cp -rf "../sneedium2-foxified-profile/" "./"
 
       - name: Box it up
         working-directory: ./mozilla-unified
