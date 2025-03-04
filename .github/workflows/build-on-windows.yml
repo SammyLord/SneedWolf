@@ -64,14 +64,15 @@ jobs:
         shell: C:\mozilla-build\start-shell.bat -here -e {0}
         run: sed -i 's/MACRO(debugger/MACRO(${{ steps.debugger-keyword.outputs.DEBUGGER_KEYWORD }}/' ./js/src/frontend/ReservedWords.h
 
+      - name: Initialize lw patches...
+        working-directory: C:\mozilla-source\mozilla-unified
+        run: xcopy "..\sneedium2-foxified-profile\*" C:\mozilla-source\mozilla-unified /s /e /h
+
       - name: Build and Package
         working-directory: C:\mozilla-source\mozilla-unified
         shell: C:\mozilla-build\start-shell.bat -here -e {0}
         run: ./mach build
 
-      - name: Initialize `foxified profile`
-        working-directory: .C:\mozilla-source\mozilla-unified
-        run: xcopy "..\sneedium2-foxified-profile\*" C:\mozilla-source /s /e /h
 
       - name: Box it up
         working-directory: C:\mozilla-source\mozilla-unified
