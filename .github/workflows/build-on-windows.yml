@@ -1,4 +1,4 @@
-name: Build Sneedium on Windows (BROKEN?)
+name: Build SneedWolf on Windows (BROKEN?)
 
 on:
   workflow_dispatch:
