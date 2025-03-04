@@ -44,7 +44,7 @@ jobs:
         working-directory: ./mozilla-unified
         run: echo "ac_add_options --with-branding=browser/branding/unofficial" > mozconfig
 
-      - name: Get librewolf settings....
+      - name: Get librewolf patches....
         working-directory: ./
         run: git clone "https://codeberg.org/librewolf/source" sneedium2-foxified-profile
 
