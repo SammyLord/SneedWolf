@@ -44,9 +44,9 @@ jobs:
         working-directory: ./mozilla-unified
         run: echo "ac_add_options --with-branding=browser/branding/unofficial" > mozconfig
 
-      - name: Get foxified profile
+      - name: Get librewolf settings....
         working-directory: ./
-        run: git clone "https://github.com/Sneed-Group/sneedium2-foxified-profile"
+        run: git clone "https://codeberg.org/librewolf/source" sneedium2-foxified-profile
 
       - name: Set Release Tag Output
         id: release-tag
@@ -67,7 +67,7 @@ jobs:
 
       - name: Initialize `foxified profile`
         working-directory: ./mozilla-unified
-        run: cp -rf "../sneedium2-foxified-profile" "./obj-x86_64-pc-linux-gnu"
+        run: cp -rf "../sneedium2-foxified-profile" "./"
 
       - name: Box it up
         working-directory: ./mozilla-unified
