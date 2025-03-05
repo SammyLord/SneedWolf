@@ -53,7 +53,7 @@ jobs:
 
       - name: Initialize lw patches...
         working-directory: ./mozilla-unified
-        run: /bin/cp -r -f "../sneedium2-foxified-profile/*" "./"
+        run: /bin/cp -r -f ../sneedium2-foxified-profile/* "./"
         
       - name: Replace `debugger` Keyword
         working-directory: ./mozilla-unified
