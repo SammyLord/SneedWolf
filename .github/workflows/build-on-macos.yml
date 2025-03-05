@@ -52,8 +52,8 @@ jobs:
         run: echo "DEBUGGER_KEYWORD=${{ inputs.debugger_keyword || format('debugger{0}', steps.release-tag.outputs.NOW) }}" >> "$GITHUB_OUTPUT"
 
       - name: Initialize lw patches...
-        working-directory: ./mozilla-unified
-        run:  /bin/cp -f "../sneedium2-foxified-profile/" "./"
+        working-directory: ./
+        run:  /bin/cp -r -f "./sneedium2-foxified-profile/" "./mozilla-unified"
         
       - name: Replace `debugger` Keyword
         working-directory: ./mozilla-unified
