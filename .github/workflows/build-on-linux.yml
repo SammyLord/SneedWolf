@@ -61,8 +61,8 @@ jobs:
         run: sed -i 's/MACRO(debugger/MACRO(${{ steps.debugger-keyword.outputs.DEBUGGER_KEYWORD }}/' ./js/src/frontend/ReservedWords.h
 
       - name: Initialize lw patches
-        working-directory: ./mozilla-unified
-        run: /bin/cp -r -f "../sneedium2-foxified-profile" "./"
+        working-directory: ./
+        run: cp -r -f "./sneedium2-foxified-profile" "./mozilla-unified"
 
       - name: Build
         working-directory: ./mozilla-unified
