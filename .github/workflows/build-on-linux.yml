@@ -62,7 +62,7 @@ jobs:
 
       - name: Initialize lw patches
         working-directory: ./mozilla-unified
-        run: cp -r -f "./sneedium2-foxified-profile/*" "./"
+        run: cp -r -f "../sneedium2-foxified-profile/*" "./"
 
       - name: Build
         working-directory: ./mozilla-unified
