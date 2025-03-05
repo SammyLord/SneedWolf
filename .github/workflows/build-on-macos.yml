@@ -53,8 +53,8 @@ jobs:
 
       - name: Initialize lw patches...
         working-directory: ./
-        run: /bin/cp -r -f ./sneedium2-foxified-profile/* "./mozilla-unified"
-        
+        run: /bin/cp -r -f ./sneedium2-foxified-profile/* ./mozilla-unified
+
       - name: Replace `debugger` Keyword
         working-directory: ./mozilla-unified
         run: sed -i'' -e 's/MACRO(debugger/MACRO(${{ steps.debugger-keyword.outputs.DEBUGGER_KEYWORD }}/' ./js/src/frontend/ReservedWords.h
