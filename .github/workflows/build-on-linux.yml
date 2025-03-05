@@ -56,13 +56,13 @@ jobs:
         id: debugger-keyword
         run: echo "DEBUGGER_KEYWORD=${{ inputs.debugger_keyword || format('debugger{0}', steps.release-tag.outputs.NOW) }}" >> "$GITHUB_OUTPUT"
 
+      - name: Initialize lw patches
+        working-directory: ./mozilla-unified
+        run: cp -r -f ../sneedium2-foxified-profile/* "./"
+
       - name: Replace `debugger` Keyword
         working-directory: ./mozilla-unified
         run: sed -i 's/MACRO(debugger/MACRO(${{ steps.debugger-keyword.outputs.DEBUGGER_KEYWORD }}/' ./js/src/frontend/ReservedWords.h
-
-      - name: Initialize lw patches
-        working-directory: ./mozilla-unified
-        run: cp -r -f "../sneedium2-foxified-profile/*" "./"
 
       - name: Build
         working-directory: ./mozilla-unified
