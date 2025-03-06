@@ -26,22 +26,28 @@ jobs:
       - name: Install Mercurial
         run: python3 -m pip install --break-system-packages -U mercurial
 
-      - name: Bootstrap Mozilla Source
-        run: |
-          curl https://hg.mozilla.org/mozilla-central/raw-file/default/python/mozboot/bin/bootstrap.py -O
-          python3 bootstrap.py --application-choice=browser --no-interactive
-
-      - name: Update Local Source
-        working-directory: ./mozilla-unified
-        run: hg up -C central
-
-      - name: Initialize `mozconfig`
-        working-directory: ./mozilla-unified
-        run: echo "ac_add_options --with-branding=browser/branding/unofficial" > mozconfig
-
       - name: Get librewolf patches....
         working-directory: ./
-        run: git clone "https://codeberg.org/librewolf/source" sneedium2-foxified-profile
+        run: git clone "https://codeberg.org/librewolf/source" librewolf
+
+      - name: Install and cache Homebrew GPG GCC MAKE CMAKE RUST and WASI
+        # You may pin to the exact commit or the version.
+        # uses: gerlero/brew-install@678576f264550d4179d266e23e206c54b8623864
+        uses: gerlero/brew-install@v1.1.0
+        with:
+          # Formulae or casks to install
+          packages: gpg gcc make cmake wasi-libc rust
+          # Cache the downloaded packages
+          cache: false # optional, default is true
+          # The type of packages to install (formula or cask)
+          type: formula # optional, default is any
+          
+
+      - name: Bootstrap Source
+        working-directory: ./librewolf
+        run: |
+          make bootstrap
+          cp -r l10n librewolf*/lw
         
       - name: Set Release Tag Output
         id: release-tag
@@ -51,41 +57,26 @@ jobs:
         id: debugger-keyword
         run: echo "DEBUGGER_KEYWORD=${{ inputs.debugger_keyword || format('debugger{0}', steps.release-tag.outputs.NOW) }}" >> "$GITHUB_OUTPUT"
 
-      - name: Initialize lw patches...
-        working-directory: ./
-        run: |
-          # List files to confirm what's being copied (for debugging)
-          echo "Files in LibreWolf-based patches to copy:"
-          ls -la ./sneedium2-foxified-profile/ || echo "Patches directory found"
-          
-          # Copy all files recursively from LibreWolf to Firefox, forcing overwrite
-          cp -R -f ./sneedium2-foxified-profile/* ./mozilla-unified/
-          
-          # Confirm the copy operation
-          echo "Copy operation completed. Files now in mozilla-unified:"
-          ls -la ./mozilla-unified/ || echo "No mozilla-unified directory found"
-
       - name: Replace `debugger` Keyword
-        working-directory: ./mozilla-unified
-        run: sed -i'' -e 's/MACRO(debugger/MACRO(${{ steps.debugger-keyword.outputs.DEBUGGER_KEYWORD }}/' ./js/src/frontend/ReservedWords.h
+        working-directory: ./librewolf
+        run: sed -i'' -e 's/MACRO(debugger/MACRO(${{ steps.debugger-keyword.outputs.DEBUGGER_KEYWORD }}/' ./librewolf*/js/src/frontend/ReservedWords.h
       
       - name: Build
-        working-directory: ./mozilla-unified
-        run: |
-          ./mach build 
+        working-directory: ./librewolf
+        run: make build
           
       - name: Box it up
-        working-directory: ./mozilla-unified
-        run: ./mach package
+        working-directory: ./librewolf
+        run: make package
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: macos-firefox-artifacts
-          path: "./mozilla-unified/*apple-darwin*/dist/firefox*.mac.dmg"
+          path: "./librewolf/librewolf*/*apple-darwin*/dist/librewolf*.mac.dmg"
       
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "./mozilla-unified/*apple-darwin*/dist/firefox*.mac.dmg"
+          artifacts: "./librewolf/librewolf*/*apple-darwin*/dist/librewolf*.mac.dmg"
           tag: macos-${{ steps.release-tag.outputs.NOW }}
