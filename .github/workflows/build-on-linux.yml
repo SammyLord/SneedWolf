@@ -40,7 +40,7 @@ jobs:
         working-directory: ./librewolf
         run: make bootstrap
 
-      - name: debrand
+      - name: debrand and hacky linux fix
         continue-on-error: true
         working-directory: ./librewolf
         run: |
@@ -49,6 +49,8 @@ jobs:
           cd librewolf*
           cp -rf browser/branding/unofficial browser/branding/librewolf
           cd ..
+          mkdir -p librewolf*/*linux-gnu/.mozbuild/
+          touch librewolf*/*linux-gnu/.mozbuild/profile_build_resources.json
         
       - name: Set Release Tag Output
         id: release-tag
