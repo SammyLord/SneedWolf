@@ -48,9 +48,9 @@ jobs:
           rm -rf librewolf*/browser/branding/librewolf
           cd librewolf*
           cp -rf browser/branding/unofficial browser/branding/librewolf
+          mkdir -p obj-x86_64-pc-linux-gnu/.mozbuild/
+          touch obj-x86_64-pc-linux-gnu/.mozbuild/profile_build_resources.json
           cd ..
-          mkdir -p librewolf*/*linux-gnu/.mozbuild/
-          touch librewolf*/*linux-gnu/.mozbuild/profile_build_resources.json
         
       - name: Set Release Tag Output
         id: release-tag
