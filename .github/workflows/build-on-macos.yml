@@ -48,8 +48,10 @@ jobs:
         run: |
           make bootstrap
           cp -r l10n librewolf*/lw
-          rm -rf browser/branding/librewolf
-          cp browser/branding/unofficial browser/branding/librewolf
+          rm -rf librewolf*/browser/branding/librewolf
+          cd librewolf*
+          cp -r browser/branding/unofficial browser/branding/librewolf
+          cd ..
         
       - name: Set Release Tag Output
         id: release-tag
