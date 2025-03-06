@@ -43,14 +43,19 @@ jobs:
           type: formula # optional, default is any
           
 
-      - name: Bootstrap Source and de-brand
+      - name: Bootstrap Source
+        continue-on-error: true
+        working-directory: ./librewolf
+        run: make bootstrap
+
+      - name: debrand
+        continue-on-error: true
         working-directory: ./librewolf
         run: |
-          make bootstrap
-          cp -r l10n librewolf*/lw
+          cp -rf l10n librewolf*/lw
           rm -rf librewolf*/browser/branding/librewolf
           cd librewolf*
-          cp -r browser/branding/unofficial browser/branding/librewolf
+          cp -rf browser/branding/unofficial browser/branding/librewolf
           cd ..
         
       - name: Set Release Tag Output
@@ -67,11 +72,17 @@ jobs:
       
       - name: Build
         working-directory: ./librewolf
-        run: make build
+        run: |
+          cd librewolf*
+          ./mach build
+          cd ..
           
       - name: Box it up
         working-directory: ./librewolf
-        run: make package
+        run: |
+          cd librewolf*
+          ./mach package
+          cd ..
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
