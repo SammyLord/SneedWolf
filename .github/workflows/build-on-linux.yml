@@ -34,11 +34,6 @@ jobs:
       - name: Get librewolf source....
         working-directory: ./
         run: git clone --recursive "https://sneedgit.nodemixaholic.com/Sneed-Group/sneedwolf-source" librewolf
-
-      - name: Install rustlang..
-        uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: stable
       
       - name: Bootstrap Source and de-brand
         continue-on-error: true
