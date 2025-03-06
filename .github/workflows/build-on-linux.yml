@@ -49,13 +49,18 @@ jobs:
           
 
       - name: Bootstrap Source and de-brand
+        continue-on-error: true
+        working-directory: ./librewolf
+        run: make bootstrap
+
+      - name: debrand
+        continue-on-error: true
         working-directory: ./librewolf
         run: |
-          make bootstrap
-          cp -r l10n librewolf*/lw
+          cp -rf l10n librewolf*/lw
           rm -rf librewolf*/browser/branding/librewolf
           cd librewolf*
-          cp -r browser/branding/unofficial browser/branding/librewolf
+          cp -rf browser/branding/unofficial browser/branding/librewolf
           cd ..
         
       - name: Set Release Tag Output
