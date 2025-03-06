@@ -28,7 +28,7 @@ jobs:
 
       - name: Get librewolf source....
         working-directory: ./
-        run: git clone "https://sneedgit.nodemixaholic.com/Sneed-Group/sneedwolf-source" librewolf
+        run: git clone --recursive "https://sneedgit.nodemixaholic.com/Sneed-Group/sneedwolf-source" librewolf
 
       - name: Install and cache Homebrew GPG GCC MAKE CMAKE RUST and WASI
         # You may pin to the exact commit or the version.
