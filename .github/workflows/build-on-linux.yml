@@ -35,17 +35,10 @@ jobs:
         working-directory: ./
         run: git clone --recursive "https://sneedgit.nodemixaholic.com/Sneed-Group/sneedwolf-source" librewolf
 
-      - name: Install and cache Homebrew GPG GCC MAKE CMAKE RUST and WASI
+      - name: rust-toolchain
         # You may pin to the exact commit or the version.
-        # uses: gerlero/brew-install@678576f264550d4179d266e23e206c54b8623864
-        uses: gerlero/brew-install@v1.1.0
-        with:
-          # Formulae or casks to install
-          packages: gpg gcc make cmake wasi-libc rust
-          # Cache the downloaded packages
-          cache: false # optional, default is true
-          # The type of packages to install (formula or cask)
-          type: formula # optional, default is any
+        # uses: actions-rs/toolchain@b2417cde72dcf67f306c0ae8e0828a81bf0b189f
+        uses: actions-rs/toolchain@v1.0.6
           
 
       - name: Bootstrap Source and de-brand
