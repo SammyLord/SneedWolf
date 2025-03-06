@@ -43,11 +43,13 @@ jobs:
           type: formula # optional, default is any
           
 
-      - name: Bootstrap Source
+      - name: Bootstrap Source and de-brand
         working-directory: ./librewolf
         run: |
           make bootstrap
           cp -r l10n librewolf*/lw
+          rm -rf browser/branding/librewolf
+          cp browser/branding/unofficial browser/branding/librewolf
         
       - name: Set Release Tag Output
         id: release-tag
