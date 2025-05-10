@@ -1,8 +1,8 @@
-# SneedWolf
+# 🐺 SneedWolf
 
 ***A browser for the rest of us.***
 
-A non-woke build of LibreWolf.
+Another Firefox fork, based on LibreWolf.
 
 
 ## Note to macOS users!
